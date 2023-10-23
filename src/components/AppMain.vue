@@ -6,9 +6,11 @@
                 <h3>Time</h3>
                 <h3>00015</h3>
             </div>
-            <div class="game-box d-flex flex-wrap">
-                <div v-for="i in 81" class="square" :class="i % 2 === 0 ?  'grey-square' : '' ">
-                </div>
+            <div class="game-box d-flex flex-wrap justify-content-center">
+                <!-- <div v-for="i in 81" class="square" :class="i % 2 === 0 ?  'grey-square' : '' "> -->
+                    <div class="row" v-for="row,rowIndex in gridMatrix">
+                        <div v-for="cell,cellIndex in row" class="square" :class="cell=== '' ? '' : cell" ></div>
+                    </div>
             </div>
         </div>
     </main>
@@ -21,7 +23,7 @@
 main {
     background-color: #001531;
     width: 100vw;
-    height: 100vh;
+    // height: 100vh;
 
     .game-container {
         // background-color: aqua;
@@ -37,17 +39,68 @@ main {
 
         .game-box {
             background-color: #eaf6ff;
-            border: 2px solid black;
+            .row {
+                width: 100%;
 
-            .square {
+                .square {
                 width: calc(100% / 9);
                 aspect-ratio: 1/1;
-            }
+                border: 1px dotted #a4bbcc;
+                cursor: pointer;
+                /* border: 1px dashed black; */
 
-            .grey-square {
-                width: calc(100% / 9);
-                aspect-ratio: 1/1;
-                background-color: #b6cddf;
+                /* 👇 Aggiunta */
+                background-size: contain;
+                }
+
+                .river {
+	                background-color: lightskyblue;
+                }
+
+                .road {
+                    border-top: 1px dashed white;
+                    border-bottom: 1px dashed white;
+                    background-color: gray;
+                }
+
+                .wood {
+                    background-image: url('../../public/wood.png');
+                    background-color: lightskyblue;
+                }
+
+                .bus {
+                    background-image: url('../../public/bus.png');
+                    border-top: 1px dashed white;
+                    border-bottom: 1px dashed white;
+                    background-color: gray;
+                }
+
+                .car {
+                    background-image: url('../../public/car.png');
+                    border-top: 1px dashed white;
+                    border-bottom: 1px dashed white;
+                    background-color: gray;
+                }
+
+                .duck {
+                    background-image: url('../../public/duck-walk.gif');
+                }
+
+                .duck-arrived {
+                    background-image: url('../../public/duck-standing.png');
+                }
+
+                .duck-drowned {
+                    background-image: url('../../public/duck-drowned.png');
+                }
+                .duck-hit {
+                    background-image: url('../../public/duck-hit.png');
+                }
+
+                .river.duck {
+                    background-image: url('../../public/duck-walk.gif'), url('../../public/wood.png');
+                }
+
             }
         }
     }
@@ -63,10 +116,32 @@ export default {
     },
     data() {
         return {
-           
+            // 0 cella vuota, 1 blocco 
+            gridMatrix: [
+                ['', '', '', '', '', '', '', '', ''],
+                ['river', 'wood', 'wood', 'river', 'wood', 'river', 'river', 'river', 'river'],
+                ['river', 'river', 'river', 'wood', 'wood', 'river', 'wood', 'wood', 'river'],
+                ['', '', '', '', '', '', '', '', ''],
+                ['road', 'bus', 'road', 'road', 'road', 'car', 'road', 'road', 'road'],
+                ['road', 'road', 'road', 'car', 'road', 'road', 'road', 'road', 'bus'],
+                ['road', 'road', 'car', 'road', 'road', 'road', 'bus', 'road', 'road'],
+                ['', '', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', '', '']
+            ],
+            
+            // Informazioni utili alla logica di gioco
+            victoryRow: 0,
+            riverRows: [1, 2],
+            roadRows: [4, 5, 6],
+            duckPosition: { y: 8, x: 4 },
+            contentBeforeDuck: '',
+            time : 15,
+            isGameOver : false,
         }
     },
     methods: {
+        // funzioni di gioco 
+        
     },
 }		
 </script>
