@@ -137,14 +137,21 @@ export default {
             victoryRow: 0,
             riverRows: [1, 2],
             roadRows: [4, 5, 6],
-            duckPosition: { y: 8, x: 4 },
             contentBeforeDuck: '',
             time : 15,
             isGameOver : false,
+            // Posizione della papera 
+            duckPosition: { y: 8, x: 4 },
+            // Posiziono la papera nella griglia
         }
     },
     methods: {
-
+       placeDuck() {
+        this.gridMatrix[this.duckPosition.y][this.duckPosition.x] = "duck";
+       }
     },
+    mounted() {
+            this.placeDuck();
+        },
 }		
 </script>
