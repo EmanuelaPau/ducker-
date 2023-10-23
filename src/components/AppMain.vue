@@ -9,7 +9,7 @@
             <div class="game-box d-flex flex-wrap justify-content-center">
                 <!-- <div v-for="i in 81" class="square" :class="i % 2 === 0 ?  'grey-square' : '' "> -->
                     <div class="row" v-for="row,rowIndex in gridMatrix">
-                        <div v-for="cell,cellIndex in row" class="square" :class="cell=== '' ? '' : cell" ></div>
+                        <div v-for="cell,cellIndex in row" class="square" :class="cell=== '' ? '' : cell, (rowIndex % 2 === 0 && cellIndex % 2 === 0) || (rowIndex % 2 !== 0 && cellIndex % 2 !== 0) ? 'darksquare' : '' " ></div>
                     </div>
             </div>
         </div>
@@ -43,14 +43,18 @@ main {
                 width: 100%;
 
                 .square {
-                width: calc(100% / 9);
-                aspect-ratio: 1/1;
-                border: 1px dotted #a4bbcc;
-                cursor: pointer;
-                /* border: 1px dashed black; */
+                    width: calc(100% / 9);
+                    aspect-ratio: 1/1;
+                    border: 1px dotted #a4bbcc;
+                    cursor: pointer;
+                    /* border: 1px dashed black; */
 
-                /* 👇 Aggiunta */
-                background-size: contain;
+                    /* 👇 Aggiunta */
+                    background-size: contain;
+                }
+
+                .darksquare {
+                    background-color: #d4ecff;
                 }
 
                 .river {
@@ -140,8 +144,7 @@ export default {
         }
     },
     methods: {
-        // funzioni di gioco 
-        
+
     },
 }		
 </script>
